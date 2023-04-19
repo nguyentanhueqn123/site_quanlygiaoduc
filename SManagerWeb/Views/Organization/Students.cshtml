@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Models.ViewModel.StudentViewModel>
+@{
+    ViewBag.Title = "Students";
+    Layout = "~/Views/Shared/_LayoutOrganization.cshtml";
+}
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
+
+<link href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css"
+      rel="stylesheet" />
+<script type="text/javascript"
+        src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+        src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+@*<script src="https://cdn.tailwindcss.com"></script>*@
+<style>
+    .row {
+        --bs-gutter-x: 0;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable();
+    });
+</script>
+@Html.Partial("_NavigationBar", (string)ViewBag.OrganizationID)
+<section id="content">
+    @Html.Partial("_ProfileBar")
+    <main>
+        <div class="d-flex justify-content-between">
+            <div>
+                <h1 class="title">Students</h1>
+                <ul class="breadcrumbs">
+                    <li><a href="#">Organization</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#" class="active">Students</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <div class="mb-2 row">
+                <a class="btn btn-primary col-md-6" href="@Url.Action("CreateStudent","Organization", new {ID = ViewBag.OrganizationID})">
+                    <i class="fa-sharp fa-solid fa-chalkboard-user"></i>
+                    Add student
+                </a>
+                <form action="@Url.Action("ImportExcelToDatabaseStudent","Organization", new {ID = ViewBag.OrganizationID})" method="post"
+                      enctype="multipart/form-data" class="col-md-6 text-end">
+                    <label for="file" class="text-decoration-underline fst-italic me-2">
+                        <i class="fas fa-file-excel text-success me-1 "></i>Click here to select file excel</label>
+                    <input type="file" name="file" id="file" class="d-none" accept=".xls, .xlsx" />
+                    <button type="submit" class="btn btn-primary p-2 btn-submit" href="" disabled>
+                        <i class="fa-sharp fa-solid fa-chalkboard-user"></i>
+                        Import excel
+                    </button>
+                </form>
+            </div>
+            <div>
+                <table id="example" class="table bg-white" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>DayOfBirth</th>
+                            <th>Phone Number</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <img width="40" height="40" class="u-radius-50 me-1" src="@Url.Content(i.AvatarPath==null ? "~/Source/Default/student.png" : i.AvatarPath)" alt="teacher" />
+                                    @i.FullName
+                                </td>
+                                <td>@i.Gender</td>
+                                <td>@(i.DayOfBirth!= null ? i.DayOfBirth.ToString("d") : "")</td>
+                                <td>@i.PhoneNumber</td>
+                                <td><a href="@Url.Action("EditStudent","Organization", new {ID = ViewBag.OrganizationID, studentID = i.Username})" class="btn btn-outline-primary">Edit</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</section>
+<script>
+    $("#file").change(function (e) {
+        if ($('#file').val()) {
+            $('.btn-submit').attr("disabled", false);
+        }
+
+    })
+</script>

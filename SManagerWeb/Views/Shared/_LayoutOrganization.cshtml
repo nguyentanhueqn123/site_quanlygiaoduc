@@ -1,0 +1,61 @@
+﻿@using Common
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+    <link href="~/Public/css/Organization/adminPanel.css" rel="stylesheet" />
+</head>
+
+<body>
+    <style>
+        body a {
+            text-decoration: none;
+        }
+
+        #content main li a {
+            color: #f96b36;
+        }
+
+        #content main li a.active {
+            color: #8D8D8D;
+        }
+
+        #sidebar .side-menu > li > a.active, #sidebar .side-menu > li > a.active:hover {
+            background-color: #f96b36;
+        }
+
+        #sidebar > .brand {
+            color: #f96b36;
+        }
+
+        .background-color-orange {
+            background-color: #f96b36;
+            color: white;
+        }
+    </style>
+    @Html.Partial("_LoadingPage")
+
+    <div id="body">
+        @RenderBody()
+
+    </div>
+
+    <script src="~/Public/Areas/js/adminPanel.js"></script>
+    <script>
+        $(window).on('load', function () {
+           $("#loading").fadeOut(1000)
+        });
+    </script>
+</body>
+
+</html>

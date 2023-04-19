@@ -1,0 +1,127 @@
+﻿@model Models.ViewModel.RegisterViewModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <link href="~/Public/css/Account/Register.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+}
+<style>
+    input[type=text], input[type=password] {
+        border-radius: 28px;
+        padding: 6px;
+        padding-left: 12px;
+        background-color: lightgrey;
+        border: none;
+        outline: none;
+        font-size: 0.9em;
+    }
+
+    .btn-submit {
+        color: white;
+        background-color: #0C5FCD;
+        width: 100%;
+        padding: 6px;
+        font-size: 0.9em;
+        border: none;
+        border-radius: 28px;
+        transition: 0.2s;
+    }
+
+    .btn-register {
+        font-size: 0.9em;
+        border-radius: 28px;
+        color: gray;
+    }
+
+    .btn-submit:hover {
+        background-color: dimgray;
+    }
+    /*  .btn-register:hover {
+        background-color: #0C5FCD;
+    }*/
+</style>
+<div id="register-form" class="d-flex justify-content-center align-items-center w-100 h-100">
+    <div class="col-lg-3 col-md-6">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="card p-3 rounded-0 shadow">
+
+                <div class="card-body">
+                    <div class="card-title h3">Sign Up</div>
+                    <hr />
+                    <div class="mb-2">
+                        <div>Full name</div>
+                        @Html.TextBoxFor(m => m.FullName, "", new { @class = "", @placeholder = "Full name" })
+                        @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <div class="form-group col-5">
+                            <div>Date of birth</div>
+                            @Html.TextBoxFor(m => m.DayOfBirth, "", new { @class = "", @placeholder = "Date of birth" })
+                            @Html.ValidationMessageFor(m => m.DayOfBirth, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-6">
+                            <div>Email</div>
+                            @Html.TextBoxFor(m => m.Email, "", new { @class = "", @placeholder = "Email" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <div class="form-group col-5">
+                            <div>Username</div>
+                            @Html.TextBoxFor(m => m.UserName, "", new { @class = "", @placeholder = "Username" })
+                            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-6">
+                            <div>Phone number</div>
+                            @Html.TextBoxFor(m => m.PhoneNumber, "", new { @class = "", @placeholder = "Phone number" })
+                            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <div class="form-group col-5">
+                            <div>Password</div>
+                            @Html.PasswordFor(m => m.Password, new { @class = "", @placeholder = "Password" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group col-6">
+                            <div>Confirm password</div>
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "", @placeholder = "Confim Password" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <div>Address</div>
+                        @Html.TextBoxFor(m => m.Address, "", new { @class = "w-100", @placeholder = "Address" })
+                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="mb-2">
+                        <div>ID Card</div>
+                        @Html.TextBoxFor(m => m.IDCard, "", new { @class = "w-100", @placeholder = "ID Card" })
+                        @Html.ValidationMessageFor(m => m.IDCard, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group mt-4">
+                        <input type="submit" name="submit" class="btn-submit" value="Register" />
+                    </div>
+                    <div class="d-flex mt-4">
+                        <div class="w-100 border-bottom mb-2 me-2"></div>
+                        OR
+                        <div class="w-100 border-bottom mb-2 ms-2"></div>
+                    </div>
+                    <div class="mt-4">
+                        <a class="btn w-100 btn-register btn-outline-dark" href="@Url.Action("Login","Account")">LOGIN</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
